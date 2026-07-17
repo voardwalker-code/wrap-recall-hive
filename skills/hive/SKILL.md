@@ -25,9 +25,10 @@ argument-hint: "[focus: what to find in the crew's memories]"
 
 Try in order (first existing `hive.py` wins):
 
-1. `python3 "${CLAUDE_PLUGIN_ROOT}/hive/hive.py"` — Claude Code plugin install  
-2. `python3 "${WRAP_RECALL_HIVE_HOME:-$HOME/.local/share/wrap-recall-hive}/hive/hive.py"` — `scripts/install.sh`  
-3. Repo clone: `python3 <wrap-recall-hive>/hive/hive.py`  
+1. `python3 "${GROK_PLUGIN_ROOT}/hive/hive.py"` — Grok Build plugin install  
+2. `python3 "${CLAUDE_PLUGIN_ROOT}/hive/hive.py"` — Claude Code plugin install  
+3. `python3 "${WRAP_RECALL_HIVE_HOME:-$HOME/.local/share/wrap-recall-hive}/hive/hive.py"` — `scripts/install.sh`  
+4. Repo clone: `python3 <wrap-recall-hive>/hive/hive.py`  
 
 Registry: `registry.json` beside `hive.py`, or `HIVE_REGISTRY`, or start from `registry.example.json`.
 

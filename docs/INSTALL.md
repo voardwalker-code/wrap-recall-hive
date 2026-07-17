@@ -67,48 +67,61 @@ cp -R skills/* .claude/skills/
 
 ## Grok Build
 
-Grok does **not** use Claude’s `/plugin` marketplace. It discovers skills from disk:
+Grok has its **own** plugin + marketplace system (`/plugins`, `/marketplace`, `grok plugin …`).  
+It also discovers loose skills under `~/.grok/skills/` (and Claude’s skills for compat).
 
-| Location | Scope |
-|----------|--------|
-| `~/.grok/skills/` | User (all projects) |
-| `<repo>/.grok/skills/` | That repo |
-| `~/.claude/skills/` | Also scanned by default (Claude compat) |
-
-### Recommended install
+### A. Plugin install (recommended — same public repo)
 
 ```bash
-git clone https://github.com/voardwalker-code/wrap-recall-hive.git   # or local path
-cd wrap-recall-hive
-./scripts/install-grok.sh
-# dev: ./scripts/install-grok.sh --link
+grok plugin install voardwalker-code/wrap-recall-hive --trust
+grok plugin enable wrap-recall-hive   # if not already enabled
 ```
 
-This:
+TUI: `/plugins` → **a** add `voardwalker-code/wrap-recall-hive` → enable,  
+or `/marketplace` → add source → install.
 
-1. Installs hive CLI → `~/.local/share/wrap-recall-hive/hive/`  
-2. Installs skills → `~/.grok/skills/{wrap,recall,hive}/`  
-3. Writes `env.sh` with `WRAP_RECALL_HIVE_HOME`
+Hive CLI resolves via `GROK_PLUGIN_ROOT` (plugin root includes `hive/hive.py`).
 
-Optional: `source ~/.local/share/wrap-recall-hive/env.sh` in your shell profile.
+Optional: install only the Claude-shaped subtree:
 
-### Config alternative (no copy)
+```bash
+grok plugin install 'voardwalker-code/wrap-recall-hive#plugins/wrap-recall-hive' --trust
+```
 
-Point Grok at a skills directory without copying:
+### B. Marketplace source
+
+```bash
+grok plugin marketplace add voardwalker-code/wrap-recall-hive
+grok plugin marketplace list
+grok plugin install voardwalker-code/wrap-recall-hive --trust
+```
+
+### C. Loose skills script (no plugin manager)
+
+```bash
+git clone https://github.com/voardwalker-code/wrap-recall-hive.git
+cd wrap-recall-hive
+./scripts/install-grok.sh
+```
+
+→ skills in `~/.grok/skills/` + CLI in `~/.local/share/wrap-recall-hive/`.
+
+### D. Config path (dev)
 
 ```toml
 # ~/.grok/config.toml
 [skills]
 paths = ["~/Projects/wrap-recall-hive/skills"]
-```
 
-Still install the hive CLI data home (or keep using the clone path in the hive skill resolution list).
+[plugins]
+paths = ["~/Projects/wrap-recall-hive"]
+```
 
 ### Both hosts at once
 
 ```bash
-./scripts/install.sh          # Grok + Claude user skills
-./scripts/install.sh --link   # symlink skills to this repo
+./scripts/install.sh
+grok plugin install voardwalker-code/wrap-recall-hive --trust
 ```
 
 ---

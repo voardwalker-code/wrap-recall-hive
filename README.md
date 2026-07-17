@@ -77,22 +77,19 @@ You should see labeled spans with `owner=demo-a` and `not_me=true`, plus a **Hiv
 
 Full detail: **[`docs/INSTALL.md`](docs/INSTALL.md)**.
 
-#### Grok Build
+#### Grok Build (plugin — recommended)
+
+```bash
+grok plugin install voardwalker-code/wrap-recall-hive --trust
+# TUI: /plugins or /marketplace → add voardwalker-code/wrap-recall-hive → install
+```
+
+Same public repo as Claude. Skills + `hive/` CLI land under `GROK_PLUGIN_ROOT`.
+
+**Loose skills** (optional):
 
 ```bash
 ./scripts/install-grok.sh
-# dev: ./scripts/install-grok.sh --link
-```
-
-Installs skills → `~/.grok/skills/{wrap,recall,hive}/`  
-and hive CLI → `~/.local/share/wrap-recall-hive/`.
-
-Optional config without copying skills:
-
-```toml
-# ~/.grok/config.toml
-[skills]
-paths = ["~/Projects/wrap-recall-hive/skills"]
 ```
 
 #### Claude Code — plugin marketplace (distribution path)

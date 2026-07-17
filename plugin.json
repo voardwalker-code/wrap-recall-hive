@@ -1,0 +1,19 @@
+{
+  "name": "wrap-recall-hive",
+  "version": "0.1.0",
+  "description": "Own-pack session continuity: /wrap, /recall, and opt-in /hive crew search with hard attribution. MIT.",
+  "author": {
+    "name": "wrap-recall-hive contributors"
+  },
+  "homepage": "https://github.com/voardwalker-code/wrap-recall-hive",
+  "repository": "https://github.com/voardwalker-code/wrap-recall-hive",
+  "license": "MIT",
+  "keywords": [
+    "memory",
+    "wrap",
+    "recall",
+    "hive",
+    "session-continuity",
+    "skills"
+  ]
+}

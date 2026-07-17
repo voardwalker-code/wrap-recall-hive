@@ -25,13 +25,15 @@ argument-hint: "[focus: what to find in the crew's memories]"
 
 Try in order (first hit wins):
 
-1. **Plugin install (Claude Code):**  
+1. **Grok Build plugin:**  
+   `python3 "${GROK_PLUGIN_ROOT}/hive/hive.py"`  
+   (set when installed as a Grok plugin; whole-repo or `#plugins/wrap-recall-hive`)
+2. **Claude Code plugin:**  
    `python3 "${CLAUDE_PLUGIN_ROOT}/hive/hive.py"`  
-   (`CLAUDE_PLUGIN_ROOT` is set when this skill runs from the installed plugin.)
-2. **Installer home:**  
+3. **Installer home:**  
    `python3 "${WRAP_RECALL_HIVE_HOME:-$HOME/.local/share/wrap-recall-hive}/hive/hive.py"`
-3. **Dev clone:** if the repo is checked out,  
-   `python3 <repo>/hive/hive.py` or `python3 <repo>/plugins/wrap-recall-hive/hive/hive.py`
+4. **Dev clone:**  
+   `python3 <repo>/hive/hive.py`
 
 Registry: copy `hive/registry.example.json` → `registry.json` next to `hive.py` (or set `HIVE_REGISTRY`).
 
