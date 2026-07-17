@@ -3,6 +3,8 @@
 **Own-pack session continuity for coding agents — plus an opt-in hivemind search for multi-seat crews.**
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![GitHub Sponsors](https://img.shields.io/github/sponsors/voardwalker-code?style=flat&logo=github)](https://github.com/sponsors/voardwalker-code)
+[![Sponsor](https://img.shields.io/badge/Sponsor-%E2%9D%A4-ff69b4)](https://github.com/sponsors/voardwalker-code)
 
 > You own your memories. When you want the hive, ask for it. You never confuse the two.
 
