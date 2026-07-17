@@ -40,29 +40,15 @@ Common “memory” products either:
 
 ```
 wrap-recall-hive/
-├── README.md                 # this file
-├── LICENSE                   # MIT
-├── RELATED.md                # growing list of related open systems
-├── skills/
-│   ├── wrap/SKILL.md         # distill → own pack
-│   ├── recall/SKILL.md       # load own pack
-│   └── hive/SKILL.md         # search crew packs
-├── hive/
-│   ├── hive.py               # stdlib CLI (Python 3.10+)
-│   ├── registry.example.json # template owner → path map
-│   └── README.md
-├── pack/                     # layout + examples for one seat
-│   ├── README.md
-│   ├── relationship-spine.example.md
-│   ├── journal/EXAMPLE-*.md
-│   └── worklog/EXAMPLE-*.md
-├── examples/
-│   ├── demo-pack/            # synthetic pack (safe to commit)
-│   └── demo-registry.json    # points at demo-pack for smoke tests
-└── docs/
-    ├── LAWS.md               # M1–M16 product laws
-    ├── DESIGN.md             # short design brief
-    └── SECURITY.md           # privacy gate before going public
+├── README.md
+├── LICENSE · RELATED.md · NOTICE
+├── .claude-plugin/marketplace.json   # Claude Code marketplace catalog
+├── plugins/wrap-recall-hive/         # Claude plugin (skills + hive CLI)
+├── skills/                           # Portable skills (Grok + manual install)
+├── hive/                             # CLI + registry.example.json
+├── scripts/install.sh · install-grok.sh
+├── pack/ · examples/
+└── docs/ INSTALL.md · LAWS.md · DESIGN.md · SECURITY.md
 ```
 
 ---
@@ -72,9 +58,11 @@ wrap-recall-hive/
 ### 1. Clone
 
 ```bash
-git clone <your-remote-url> wrap-recall-hive
+git clone https://github.com/voardwalker-code/wrap-recall-hive.git
 cd wrap-recall-hive
 ```
+
+(Private repo needs git credentials; local path works too.)
 
 ### 2. Smoke-test hive (synthetic data — no personal packs)
 
@@ -85,43 +73,70 @@ python3 hive/hive.py --registry examples/demo-registry.json --focus "rate limit"
 
 You should see labeled spans with `owner=demo-a` and `not_me=true`, plus a **Hive report**.
 
-### 3. Create your own pack
+### 3. Install for your agent host
+
+Full detail: **[`docs/INSTALL.md`](docs/INSTALL.md)**.
+
+#### Grok Build
+
+```bash
+./scripts/install-grok.sh
+# dev: ./scripts/install-grok.sh --link
+```
+
+Installs skills → `~/.grok/skills/{wrap,recall,hive}/`  
+and hive CLI → `~/.local/share/wrap-recall-hive/`.
+
+Optional config without copying skills:
+
+```toml
+# ~/.grok/config.toml
+[skills]
+paths = ["~/Projects/wrap-recall-hive/skills"]
+```
+
+#### Claude Code — plugin marketplace (distribution path)
+
+```text
+# Local dogfood (works while private):
+/plugin marketplace add /absolute/path/to/wrap-recall-hive
+/plugin install wrap-recall-hive@wrap-recall-hive
+
+# After public:
+/plugin marketplace add voardwalker-code/wrap-recall-hive
+/plugin install wrap-recall-hive@wrap-recall-hive
+```
+
+Or user skills (no plugin UI):
+
+```bash
+./scripts/install.sh --claude
+```
+
+#### Both hosts at once
+
+```bash
+./scripts/install.sh
+```
+
+### 4. Create your own pack
 
 ```bash
 mkdir -p ~/.agent-memory/primary/{journal,worklog}
 cp pack/relationship-spine.example.md ~/.agent-memory/primary/relationship-spine.md
 cp pack/README.md ~/.agent-memory/primary/README.md
-# edit the spine — it is yours
 ```
 
-### 4. Install skills into your agent host
-
-Copy or symlink skill folders into whatever your agent uses for skills, for example:
-
-| Host | Typical skill root |
-|------|--------------------|
-| Grok Build | `~/.grok/skills/` |
-| Claude Code | `~/.claude/skills/` |
-| Codex | project `.agents/skills/` |
-| Other | follow that product’s skill docs |
-
-```bash
-# example — adjust to your host
-cp -R skills/wrap skills/recall skills/hive ~/.grok/skills/
-```
-
-Edit the skill paths if your pack root is not the default example (`~/.agent-memory/<seat>/`).
+Host-native roots also work (`~/.grok/memory/`, `~/.claude/claude-memory/`) — point the skills at what you already use.
 
 ### 5. Optional multi-seat hive
 
 ```bash
-cp hive/registry.example.json hive/registry.json
-# edit roots for agent-a, agent-b, shared board/ledger paths
-python3 hive/hive.py --list-owners
-python3 hive/hive.py --focus "auth refactor"
+cp ~/.local/share/wrap-recall-hive/hive/registry.example.json \
+   ~/.local/share/wrap-recall-hive/hive/registry.json
+# edit roots — do not commit personal registry to a public remote
+python3 ~/.local/share/wrap-recall-hive/hive/hive.py --list-owners
 ```
-
-**Do not commit** a `registry.json` that points at private personal trees if you later make this remote public. The package `.gitignore` is set up to help.
 
 ---
 

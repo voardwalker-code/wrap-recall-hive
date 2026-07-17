@@ -23,13 +23,17 @@ argument-hint: "[focus: what to find in the crew's memories]"
 
 ## Resolve the CLI
 
-Try in order (first existing `hive.py` wins):
+Try in order (first hit wins):
 
-1. `python3 "${CLAUDE_PLUGIN_ROOT}/hive/hive.py"` — Claude Code plugin install  
-2. `python3 "${WRAP_RECALL_HIVE_HOME:-$HOME/.local/share/wrap-recall-hive}/hive/hive.py"` — `scripts/install.sh`  
-3. Repo clone: `python3 <wrap-recall-hive>/hive/hive.py`  
+1. **Plugin install (Claude Code):**  
+   `python3 "${CLAUDE_PLUGIN_ROOT}/hive/hive.py"`  
+   (`CLAUDE_PLUGIN_ROOT` is set when this skill runs from the installed plugin.)
+2. **Installer home:**  
+   `python3 "${WRAP_RECALL_HIVE_HOME:-$HOME/.local/share/wrap-recall-hive}/hive/hive.py"`
+3. **Dev clone:** if the repo is checked out,  
+   `python3 <repo>/hive/hive.py` or `python3 <repo>/plugins/wrap-recall-hive/hive/hive.py`
 
-Registry: `registry.json` beside `hive.py`, or `HIVE_REGISTRY`, or start from `registry.example.json`.
+Registry: copy `hive/registry.example.json` → `registry.json` next to `hive.py` (or set `HIVE_REGISTRY`).
 
 ## Procedure
 
@@ -54,7 +58,7 @@ For every span with `not_me=true` / foreign `owner=`:
 
 - Speak as **reviewer of their trail**, not as the author  
 - Do not say “I shipped X” for their work  
-- You may apply lessons; on wrap, put peer evidence under **`## From the hive`**  
+- On wrap, put peer evidence under **`## From the hive`**  
 - Do not write into their pack  
 
 ### 3. Report
@@ -75,4 +79,3 @@ For every span with `not_me=true` / foreign `owner=`:
 - Auto-load hive on session start  
 - Cross-write packs  
 - Treat hive hits as autobiography  
-- Require a specific IDE or cloud vendor  
