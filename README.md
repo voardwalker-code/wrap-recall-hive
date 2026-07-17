@@ -198,15 +198,13 @@ See [`docs/DESIGN.md`](docs/DESIGN.md) and [`docs/SECURITY.md`](docs/SECURITY.md
 
 ## Related projects (growing list)
 
-Maintained in [`RELATED.md`](RELATED.md). Snapshot:
+Maintained in [`RELATED.md`](RELATED.md).
 
 | Project | Role |
 |---------|------|
 | **wrap-recall-hive** (this) | Session continuity + hive search for coding agents |
-| [NekoCore-OS](https://github.com/voardwalker-code/NekoCore-OS) | Cognitive architecture — episodic memory, brain cycles, dreams |
-| [MA-Memory-Architect](https://github.com/voardwalker-code/MA-Memory-Architect) | Standalone AI development agent with persistent memory |
 
-When this repo goes public, add it to any house landing / portfolio list the same way those siblings are listed.
+Sibling house systems (orchestrator, cognitive substrate, …) get listed **when their public/replacement cut is ready** — not while rebuilds are private. See `RELATED.md` for how to add rows later.
 
 ---
 

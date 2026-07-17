@@ -34,6 +34,7 @@ Coding agents lose continuity after `/clear` or a new session. Transcript replay
 - RAG over full transcripts as the continuity product  
 - Storing secrets in packs  
 
-## Related systems (inspiration / family)
+## Related systems
 
-This package is **session continuity for coding agents**. Other open projects explore agent memory and identity at different layers (episodic mind, orchestrators, etc.). See the root README **Related projects** list.
+This package is **session continuity for coding agents** only.  
+Orchestrators, companion minds, and full cognitive OS work are separate products; list them in `RELATED.md` only when a shareable cut is intentional.
