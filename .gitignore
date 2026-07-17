@@ -1,0 +1,27 @@
+# Never commit live personal memory packs
+**/.env
+**/.env.*
+**/auth.json
+**/credentials*
+**/*secret*
+**/*api*key*
+*.pem
+*.key
+
+# Local live packs (if someone points registry here by mistake)
+live-packs/
+private/
+.personal/
+
+# Editor / OS
+.DS_Store
+*.swp
+.idea/
+.vscode/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Local registry pointing at real homes (use registry.example.json)
+hive/registry.json
+hive/registry.local.json

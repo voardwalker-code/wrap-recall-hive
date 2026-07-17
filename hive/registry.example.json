@@ -1,0 +1,40 @@
+{
+  "version": 1,
+  "comment": "Copy to registry.json and edit paths for your seats. Never commit a registry that points at private personal trees if the remote is public.",
+  "owners": [
+    {
+      "id": "agent-a",
+      "kind": "coding-pack",
+      "root": "~/.agent-memory/agent-a",
+      "write": ["agent-a"],
+      "layers": {
+        "spine": "relationship-spine.md",
+        "journal": "journal",
+        "worklog": "worklog"
+      }
+    },
+    {
+      "id": "agent-b",
+      "kind": "coding-pack",
+      "root": "~/.agent-memory/agent-b",
+      "write": ["agent-b"],
+      "layers": {
+        "spine": "relationship-spine.md",
+        "journal": "journal",
+        "worklog": "worklog"
+      }
+    },
+    {
+      "id": "house-board",
+      "kind": "shared-correspondence",
+      "root": "~/shared/house/BOARD.md",
+      "write": ["any-signed-correspondent"]
+    },
+    {
+      "id": "house-ledger",
+      "kind": "shared-work",
+      "root": "~/shared/house/LEDGER.md",
+      "write": ["ledger-appender"]
+    }
+  ]
+}

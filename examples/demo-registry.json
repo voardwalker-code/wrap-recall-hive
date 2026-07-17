@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "comment": "Points at synthetic examples/demo-pack only — safe for CI and first-run demos.",
+  "owners": [
+    {
+      "id": "demo-a",
+      "kind": "coding-pack",
+      "root": "examples/demo-pack",
+      "write": ["demo-a"],
+      "layers": {
+        "spine": "relationship-spine.md",
+        "journal": "journal",
+        "worklog": "worklog"
+      }
+    }
+  ]
+}

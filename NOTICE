@@ -1,0 +1,10 @@
+wrap-recall-hive
+Copyright (c) 2026 wrap-recall-hive contributors
+
+This product includes software developed as an open package for coding-agent
+session continuity (wrap / recall / hive). It does not include live personal
+memory packs from any contributor's machine.
+
+Third-party agent hosts (Grok, Claude Code, Codex, etc.) are separate products;
+skill files are provided as portable markdown procedures, not as endorsements
+or affiliations.
