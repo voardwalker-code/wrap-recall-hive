@@ -27,12 +27,24 @@ Coding agents lose continuity after `/clear` or a new session. Transcript replay
 - Output is budgeted markdown with `not_me=true` envelopes  
 - Stdlib Python; no cloud required  
 
+## Install surface (M17)
+
+Rituals must stay three plain names: **`wrap` · `recall` · `hive`**.
+
+| Host | Daily install | Avoid |
+|------|---------------|--------|
+| **Grok** | `./scripts/install-grok.sh` → `~/.grok/skills/` | `grok plugin install` *plus* loose skills (namespaced twin UI) |
+| **Claude** | Marketplace plugin *or* `./scripts/install.sh --claude` | Both at once |
+
+Plugin packaging exists for Claude marketplace distribution. It is not a second product and must not double the slash menu.
+
 ## Non-goals
 
 - Vendor lock-in to one agent CLI  
 - Silent cross-write  
 - RAG over full transcripts as the continuity product  
 - Storing secrets in packs  
+- Dual install paths that show `package:skill` beside plain skill names on the same host  
 
 ## Related systems
 

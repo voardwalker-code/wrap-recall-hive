@@ -1,5 +1,28 @@
 # Install guide — Claude Code & Grok Build
 
+## Product law: one surface (M17)
+
+The rituals must stay **simple**:
+
+```text
+wrap · recall · hive
+```
+
+Not a second, package-prefixed twin:
+
+```text
+wrap-recall-hive:wrap · wrap-recall-hive:recall · wrap-recall-hive:hive
+```
+
+| Rule | Why |
+|------|-----|
+| **One install path per host** | Plugin + loose skills = two UIs for the same ritual |
+| **Grok = loose skills only** | Grok plugins namespace skills as `plugin:skill` — that breaks the simplicity that made this good |
+| **Claude = plugin *or* user skills** | Marketplace is fine for distribution; user skills keep plain names — **never both** |
+| **Same pack either way** | Skills only change *how they appear*; your memory root does not fork |
+
+---
+
 ## What gets installed
 
 | Piece | Purpose |
@@ -12,27 +35,84 @@
 
 ---
 
+## Grok Build (recommended path)
+
+**Use the install script.** Do **not** `grok plugin install` this package if you want plain `/wrap` `/recall` `/hive`.
+
+```bash
+git clone https://github.com/voardwalker-code/wrap-recall-hive.git
+cd wrap-recall-hive
+./scripts/install-grok.sh
+```
+
+What that does:
+
+1. Copies hive CLI → `~/.local/share/wrap-recall-hive/`
+2. Copies skills → `~/.grok/skills/{wrap,recall,hive}/` (**plain names**)
+3. **Uninstalls** a Grok `wrap-recall-hive` plugin if one is present (avoids the double UI)
+
+Then in Grok type: `recall` · `wrap` · `hive` — not `wrap-recall-hive:…`.
+
+Dev symlink (edit skills in-repo):
+
+```bash
+./scripts/install-grok.sh --link
+```
+
+Keep a Grok plugin on purpose (not recommended):
+
+```bash
+./scripts/install-grok.sh --keep-plugin   # you will still get dual surfaces if both exist
+```
+
+### Why not the Grok plugin?
+
+Grok’s plugin manager loads skills as **`wrap-recall-hive:recall`**.  
+If you *also* have `~/.grok/skills/recall`, the slash menu shows **two recalls**. That was the confusion this package must not recreate.
+
+Grok plugin install is **unsupported as a dual path** and **not recommended** for daily use. The public repo still has `plugin.json` so the tree is a valid plugin unit for hosts that need it — Grok seats should use loose skills.
+
+### Config (dev only — one path)
+
+```toml
+# ~/.grok/config.toml — pick ONE, never both skills.paths + plugin
+
+# Option A (preferred): loose skills already under ~/.grok/skills via install-grok.sh
+# (nothing required)
+
+# Option B: point at the clone instead of copying
+[skills]
+paths = ["~/Projects/wrap-recall-hive/skills"]
+
+# Do NOT also:
+# [plugins]
+# paths = ["~/Projects/wrap-recall-hive"]
+# enabled = ["wrap-recall-hive"]
+```
+
+---
+
 ## Claude Code
 
-### A. Plugin marketplace (recommended for distribution)
+### A. Plugin marketplace (distribution path)
 
 When the repo is available to Claude (local path or **public** GitHub):
 
-**Local test (private ok):**
+**Local test:**
 
 ```text
 /plugin marketplace add /absolute/path/to/wrap-recall-hive
 /plugin install wrap-recall-hive@wrap-recall-hive
 ```
 
-**After public:**
+**Public:**
 
 ```text
 /plugin marketplace add voardwalker-code/wrap-recall-hive
 /plugin install wrap-recall-hive@wrap-recall-hive
 ```
 
-CLI equivalent:
+CLI:
 
 ```bash
 claude plugin marketplace add /path/to/wrap-recall-hive
@@ -40,20 +120,26 @@ claude plugin install wrap-recall-hive@wrap-recall-hive
 claude plugin validate /path/to/wrap-recall-hive
 ```
 
-Plugin skills may appear **namespaced** (e.g. `wrap-recall-hive:wrap`). Natural language cues (`wrap`, `hive`) still match skill descriptions.
+Plugin skills **may appear namespaced** (e.g. `wrap-recall-hive:wrap`). Natural language cues (`wrap`, `hive`) still match skill descriptions.  
+If you want plain names on Claude instead, use **B** and do **not** also install the plugin.
 
 Hive CLI inside the plugin resolves via `CLAUDE_PLUGIN_ROOT`.
 
-### B. User skills (simple, same as many personal skills)
+### B. User skills (plain names)
 
 ```bash
 ./scripts/install.sh --claude
-# or: ./scripts/install.sh --claude --link   # symlink to this clone for dev
+# or: ./scripts/install.sh --claude --link
 ```
 
-Copies (or links) into `~/.claude/skills/{wrap,recall,hive}/` and installs the CLI under:
-
+Copies (or links) into `~/.claude/skills/{wrap,recall,hive}/` and installs the CLI under  
 `~/.local/share/wrap-recall-hive/` (override with `--home` or `WRAP_RECALL_HIVE_HOME`).
+
+**If you already installed the marketplace plugin, remove user skill copies** so only one surface remains:
+
+```bash
+rm -rf ~/.claude/skills/{wrap,recall,hive}
+```
 
 ### C. Project-scoped skills
 
@@ -65,64 +151,21 @@ cp -R skills/* .claude/skills/
 
 ---
 
-## Grok Build
-
-Grok has its **own** plugin + marketplace system (`/plugins`, `/marketplace`, `grok plugin …`).  
-It also discovers loose skills under `~/.grok/skills/` (and Claude’s skills for compat).
-
-### A. Plugin install (recommended — same public repo)
-
-```bash
-grok plugin install voardwalker-code/wrap-recall-hive --trust
-grok plugin enable wrap-recall-hive   # if not already enabled
-```
-
-TUI: `/plugins` → **a** add `voardwalker-code/wrap-recall-hive` → enable,  
-or `/marketplace` → add source → install.
-
-Hive CLI resolves via `GROK_PLUGIN_ROOT` (plugin root includes `hive/hive.py`).
-
-Optional: install only the Claude-shaped subtree:
-
-```bash
-grok plugin install 'voardwalker-code/wrap-recall-hive#plugins/wrap-recall-hive' --trust
-```
-
-### B. Marketplace source
-
-```bash
-grok plugin marketplace add voardwalker-code/wrap-recall-hive
-grok plugin marketplace list
-grok plugin install voardwalker-code/wrap-recall-hive --trust
-```
-
-### C. Loose skills script (no plugin manager)
-
-```bash
-git clone https://github.com/voardwalker-code/wrap-recall-hive.git
-cd wrap-recall-hive
-./scripts/install-grok.sh
-```
-
-→ skills in `~/.grok/skills/` + CLI in `~/.local/share/wrap-recall-hive/`.
-
-### D. Config path (dev)
-
-```toml
-# ~/.grok/config.toml
-[skills]
-paths = ["~/Projects/wrap-recall-hive/skills"]
-
-[plugins]
-paths = ["~/Projects/wrap-recall-hive"]
-```
-
-### Both hosts at once
+## Both hosts at once
 
 ```bash
 ./scripts/install.sh
+# → plain skills under ~/.grok/skills and ~/.claude/skills + shared hive CLI
+```
+
+That is enough. **Do not** add:
+
+```bash
+# BAD on Grok — creates wrap-recall-hive:recall beside /recall
 grok plugin install voardwalker-code/wrap-recall-hive --trust
 ```
+
+Claude may still use the marketplace plugin **instead of** `~/.claude/skills` — pick one.
 
 ---
 
@@ -138,7 +181,7 @@ Or use host-native roots:
 - Grok often: `~/.grok/memory/`  
 - Claude often: `~/.claude/claude-memory/`  
 
-Edit skill/pack docs to match the root you actually use.
+Edit skill/pack docs to match the root you actually use. Blank `/recall` loads spine + latest 1–3 Recalls + worklog (~30–50k) — not every journal at once. History stays on disk; focused `/recall <note>` pulls matching entries.
 
 ### Multi-seat hive
 
@@ -158,12 +201,25 @@ python3 "${WRAP_RECALL_HIVE_HOME:-$HOME/.local/share/wrap-recall-hive}/hive/hive
   --registry examples/demo-registry.json --focus "rate limit"
 ```
 
-(From a clone, you can also use `./hive/hive.py --registry examples/demo-registry.json`.)
+(From a clone: `./hive/hive.py --registry examples/demo-registry.json`.)
 
 In-session:
 
-- Claude / Grok: say `wrap`, `recall`, or `hive <focus>`  
-- Claude plugin: `/plugin` list should show `wrap-recall-hive`  
+| Host | Expect |
+|------|--------|
+| Grok | Slash / natural language: **`wrap`**, **`recall`**, **`hive`** only |
+| Claude (user skills) | Same plain names |
+| Claude (plugin only) | May show `wrap-recall-hive:…`; still one set — not duplicated with user skills |
+
+**Fail if you see both** `/recall` **and** `wrap-recall-hive:recall` on the same host.
+
+Recovery (Grok):
+
+```bash
+grok plugin uninstall wrap-recall-hive --confirm
+./scripts/install-grok.sh
+# restart Grok so the slash menu refreshes
+```
 
 ---
 

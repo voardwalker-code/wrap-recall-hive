@@ -1,7 +1,7 @@
 {
   "name": "wrap-recall-hive",
   "version": "0.1.0",
-  "description": "Own-pack session continuity: /wrap, /recall, and opt-in /hive crew search with hard attribution. MIT.",
+  "description": "Own-pack session continuity: plain wrap/recall/hive (+ opt-in hive crew search). Grok: use scripts/install-grok.sh (not this plugin). Claude: marketplace OR user skills, not both. MIT.",
   "author": {
     "name": "wrap-recall-hive contributors"
   },

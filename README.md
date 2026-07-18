@@ -77,45 +77,43 @@ You should see labeled spans with `owner=demo-a` and `not_me=true`, plus a **Hiv
 
 ### 3. Install for your agent host
 
-Full detail: **[`docs/INSTALL.md`](docs/INSTALL.md)**.
+Full detail: **[`docs/INSTALL.md`](docs/INSTALL.md)**.  
+**Law M17 — one surface:** skills must appear as plain **`wrap` · `recall` · `hive`**.  
+Never install **plugin + loose skills** on the same host (Grok especially: plugins namespace to `wrap-recall-hive:recall`).
 
-#### Grok Build (plugin — recommended)
-
-```bash
-grok plugin install voardwalker-code/wrap-recall-hive --trust
-# TUI: /plugins or /marketplace → add voardwalker-code/wrap-recall-hive → install
-```
-
-Same public repo as Claude. Skills + `hive/` CLI land under `GROK_PLUGIN_ROOT`.
-
-**Loose skills** (optional):
+#### Grok Build (recommended — plain names)
 
 ```bash
 ./scripts/install-grok.sh
 ```
 
-#### Claude Code — plugin marketplace (distribution path)
+→ `~/.grok/skills/{wrap,recall,hive}/` + hive CLI under `~/.local/share/wrap-recall-hive/`.  
+The script **removes** a Grok `wrap-recall-hive` plugin if present so you do not get a second, namespaced set.
+
+Do **not** also run `grok plugin install …` for daily use.
+
+#### Claude Code — pick **one**
+
+**Marketplace** (distribution; may show namespaced skill ids):
 
 ```text
-# Local dogfood (works while private):
-/plugin marketplace add /absolute/path/to/wrap-recall-hive
-/plugin install wrap-recall-hive@wrap-recall-hive
-
-# After public:
 /plugin marketplace add voardwalker-code/wrap-recall-hive
 /plugin install wrap-recall-hive@wrap-recall-hive
 ```
 
-Or user skills (no plugin UI):
+**Or** plain user skills (no plugin UI):
 
 ```bash
 ./scripts/install.sh --claude
 ```
 
-#### Both hosts at once
+Not both — remove `~/.claude/skills/{wrap,recall,hive}` if you use the marketplace plugin.
+
+#### Both hosts (plain names on each)
 
 ```bash
 ./scripts/install.sh
+# enough — no extra grok plugin install
 ```
 
 ### 4. Create your own pack
@@ -197,6 +195,7 @@ Highlights:
 - Own write · no silent cross-write  
 - Hive is additive (M15)  
 - Wrap hive hygiene (M16)  
+- **One surface** (M17) — plain `wrap` / `recall` / `hive`; never dual plugin+loose installs  
 - Secrets never  
 - Human gates on promote / destructive ops  
 

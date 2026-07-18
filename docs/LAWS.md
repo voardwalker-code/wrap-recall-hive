@@ -18,7 +18,9 @@
 | **M14** | **Human gates** — promote-to-house-law and destructive pack ops need human intent |
 | **M15** | **`/hive` additive** — wrap/recall stay own-pack only; never auto-merge hive into blank recall |
 | **M16** | **Wrap hive hygiene** — `## From the hive` for peer evidence; `## Recall` = this seat only |
+| **M17** | **One surface** — install so rituals appear as plain `wrap` / `recall` / `hive` only. Never plugin + loose skills on the same host (Grok plugin namespaces → `wrap-recall-hive:recall`). Grok daily path = loose skills; Claude = marketplace *or* user skills, not both. |
 
 ## One-line
 
-> You own your memories. When you want the hive, ask for it. You never confuse the two.
+> You own your memories. When you want the hive, ask for it. You never confuse the two.  
+> One install path. Three plain names.
