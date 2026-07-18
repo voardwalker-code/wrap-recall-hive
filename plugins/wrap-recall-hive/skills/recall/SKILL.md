@@ -10,46 +10,70 @@ argument-hint: "[optional focus: what to remember / look for]"
 # Recall — load your own memory pack
 
 **Keywords:** `recall` · `remember` · `load memory` · `/recall` · `/recall <focus>`  
+**Read root (default example):** `~/.agent-memory/<your-seat>/`
 
-**Read root:** this seat’s pack only (e.g. `~/.claude/claude-memory/`, `~/.grok/memory/`, or `~/.agent-memory/<seat>/`).  
-Crew search is **`/hive`** — not this skill.
+This is the **load** twin of `/wrap`. Crew / multi-seat search is **`/hive`** — not this skill.
 
-## Budget
+## Budget (hard rule)
 
 | Target | Guidance |
 |--------|----------|
-| Sweet spot | ~30k–50k tokens |
-| Floor | Spine + at least one latest `## Recall` |
-| Ceiling | Cap ~50k; drop older journals before spine |
+| Sweet spot | ~30k–50k tokens loaded |
+| Floor | Spine + at least one latest `## Recall` if they exist |
+| Ceiling | Cap ~50k tokens; drop older journals / worklog tails before the spine |
+
+Rough size: ~4 chars ≈ 1 token.
 
 ## Procedure
 
-### Blank focus
+### 0. Orient
 
-1. Spine  
-2. Latest 1–3 journal `## Recall` sections only  
-3. Today’s worklog tail  
-4. Stop at budget  
+1. Confirm pack root exists.  
+2. List journal filenames (newest first).  
+3. Note whether focus is empty or set.
 
-### Focus provided — **own pack only**
+### 1A. Blank focus — recent default pack
 
-Search journal + worklog for the stub; load matching Recalls. Prefer relevance. If empty, fall back to blank pack and say so.
+1. **Spine** — full (or skim if huge).  
+2. **Latest journal `## Recall` only** — last 1–3. Prefer `## Recall` through next `##`, not full multi-page Notes.  
+3. **Today’s worklog** tail (or yesterday if today empty).  
+4. **Gameroom (if present):** `~/.grok/memory/gameroom/last-session.md` — board/scores only, not a chat dump.  
+5. Stop at budget.
 
-### Do not load as autobiography
+### 1B. Focus provided — search **own pack only**
 
-- `## From the hive` — peer evidence only (keep owner labels)  
-- Other seats’ packs (use `/hive`)  
-- Secrets / full transcripts  
+1. Spine still first (self remains self).  
+2. Search journal + worklog for keywords (filenames, Recall bodies, worklog titles).  
+3. Load matching Recalls / worklog blocks.  
+4. Prefer relevance over dumping entire history.  
+5. If nothing matches: say so, then fall back to §1A.
 
-### Report
+### 2. What not to load
+
+- Full `## Notes` when `## Recall` already carries the judgment  
+- Transcripts / session JSONL as if they were wrap memory  
+- Secrets, auth files  
+- **`## From the hive` as autobiography** — peer evidence only; load when focus needs it and keep owner labels  
+- Other seats’ packs (use `/hive`)
+
+### 3. Report
 
 ```markdown
 ## Recall loaded
 
 **Focus:** <none | note>
-**Loaded:** …
+**Loaded:** spine / journal slugs / worklog
+**Approx size:** …
 **Carry-forward:** 3–8 bullets
 **Open threads:** …
 ```
 
-Read-only. Do not wrap unless asked.
+Read-only on the pack. Do not wrap unless asked.
+
+## Pair
+
+| Cue | Tool |
+|-----|------|
+| Distill this session | `/wrap` |
+| Load *my* continuity | `/recall` |
+| Search the *crew* | `/hive` |

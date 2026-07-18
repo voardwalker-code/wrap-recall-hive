@@ -1,6 +1,6 @@
 {
   "name": "wrap-recall-hive",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Own-pack session continuity for coding agents: /wrap, /recall, and opt-in /hive crew search with hard attribution. MIT.",
   "author": {
     "name": "wrap-recall-hive contributors"

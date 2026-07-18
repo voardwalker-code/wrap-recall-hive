@@ -23,18 +23,14 @@ argument-hint: "[focus: what to find in the crew's memories]"
 
 ## Resolve the CLI
 
-Try in order (first hit wins):
+Try in order (first existing `hive.py` wins):
 
-1. **Installer home (preferred):**  
-   `python3 "${WRAP_RECALL_HIVE_HOME:-$HOME/.local/share/wrap-recall-hive}/hive/hive.py"`
-2. **Claude Code plugin:**  
-   `python3 "${CLAUDE_PLUGIN_ROOT}/hive/hive.py"`
-3. **Dev clone:**  
-   `python3 <repo>/hive/hive.py`
-4. **Grok plugin (legacy only):**  
-   `python3 "${GROK_PLUGIN_ROOT}/hive/hive.py"` — Grok daily install is loose skills (`install-grok.sh`), not this plugin (M17)
+1. `python3 "${WRAP_RECALL_HIVE_HOME:-$HOME/.local/share/wrap-recall-hive}/hive/hive.py"` — `scripts/install.sh` / `install-grok.sh` (**preferred**)  
+2. `python3 "${CLAUDE_PLUGIN_ROOT}/hive/hive.py"` — Claude Code marketplace plugin  
+3. Repo clone: `python3 <wrap-recall-hive>/hive/hive.py`  
+4. `python3 "${GROK_PLUGIN_ROOT}/hive/hive.py"` — legacy only; **Grok daily path is loose skills**, not a Grok plugin (M17)
 
-Registry: copy `hive/registry.example.json` → `registry.json` next to `hive.py` (or set `HIVE_REGISTRY`).
+Registry: `registry.json` beside `hive.py`, or `HIVE_REGISTRY`, or start from `registry.example.json`.
 
 ## Procedure
 
@@ -59,7 +55,7 @@ For every span with `not_me=true` / foreign `owner=`:
 
 - Speak as **reviewer of their trail**, not as the author  
 - Do not say “I shipped X” for their work  
-- On wrap, put peer evidence under **`## From the hive`**  
+- You may apply lessons; on wrap, put peer evidence under **`## From the hive`**  
 - Do not write into their pack  
 
 ### 3. Report
@@ -80,3 +76,4 @@ For every span with `not_me=true` / foreign `owner=`:
 - Auto-load hive on session start  
 - Cross-write packs  
 - Treat hive hits as autobiography  
+- Require a specific IDE or cloud vendor  

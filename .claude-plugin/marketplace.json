@@ -13,7 +13,7 @@
       "name": "wrap-recall-hive",
       "source": "./plugins/wrap-recall-hive",
       "description": "Own-pack /wrap and /recall plus opt-in /hive crew memory search (labeled not-me). Includes stdlib hive CLI.",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "author": {
         "name": "wrap-recall-hive contributors"
       },

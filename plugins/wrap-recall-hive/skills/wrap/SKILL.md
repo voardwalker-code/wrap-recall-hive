@@ -11,27 +11,30 @@ argument-hint: "[optional note about what to emphasize]"
 # Wrap — end-of-session memory ritual
 
 **Keywords:** `wrap` · `wrap up` · `/wrap` · `goodnight` · `save the memory`  
+**Write root (default example):** `~/.agent-memory/<your-seat>/`  
+Configure your real path in the tool skill or environment; **never** write into another seat’s pack.
 
-**Write root:** configure per seat (examples: `~/.agent-memory/<seat>/`, Claude often uses `~/.claude/claude-memory/`, Grok often uses `~/.grok/memory/`).  
-**Never** write into another seat’s pack.
+This is **judgment distillation**, not a transcript dump. Do it **before** clear/new.
 
-**Pair:** next session **`/recall`**. Crew search **`/hive`** (separate).
+**Pair:** next session loads with **`/recall`**. Crew search is **`/hive`** (separate tool).
 
 ## Pack layout
 
 | Layer | Path | Role |
 |-------|------|------|
-| Spine | `relationship-spine.md` (or `RELATIONSHIP.md`) | Durable agreements, lore |
-| Journal | `journal/<YYYY-MM-DD>-<slug>.md` | `## Recall` + notes + hive |
+| Spine | `relationship-spine.md` | Durable agreements, lore, how the human asks |
+| Journal | `journal/<YYYY-MM-DD>-<slug>.md` | Distilled `## Recall` + notes |
 | Worklog | `worklog/<YYYY-MM-DD>.md` | Facts / paths / status |
+| Index | `README.md` | Load order + do-nots |
 
 ## Procedure
 
 ### 0. Orient
 
-1. Skim the spine if present.  
+1. Skim the spine if it exists.  
 2. List recent journal filenames (avoid duplicate slugs).  
-3. Today’s date + kebab slug.
+3. Today’s date + kebab slug for this task.  
+4. **Gameroom check:** if `~/.grok/memory/gameroom/last-session.md` exists and is from this session/day (or the human played the room), fold its board/scores/open threads into journal + worklog. Prefer the room’s **Wrap room** button for pure play sessions (mechanical, no model $). CLI `/wrap` still owns full judgment distill when coding + play mixed. Do not dump full table-talk transcripts.
 
 ### 1. Journal (required)
 
@@ -59,12 +62,12 @@ Peer trails go in ## From the hive only.>
 
 ## From the hive
 
-<If /hive used OR peer packs read: fill form.
+<If /hive was used OR peer packs were read: fill the form.
 If neither: write exactly _No hive consult this session._>
 
 ### Hive consults this session
 - **Focus / cue:** …
-- **CLI / path:** …
+- **CLI / path:** `python3 path/to/hive.py --focus "…"`
 - **Owners hit:** …
 
 ### Peer trails (attributed — not me)
@@ -74,7 +77,7 @@ If neither: write exactly _No hive consult this session._>
 - … or _none_
 
 ### Peer relationship notes (optional)
-- …
+- … how *this seat's* working relationship with that peer shifted
 ```
 
 ### 2. Worklog (required)
@@ -83,7 +86,7 @@ If neither: write exactly _No hive consult this session._>
 ### W— — <short title>
 **Ask:** …
 **Did:**
-- …
+- … (own actions; peer cites attributed)
 **Hive:** none | focus "…" · owners: …
 **Status:** Done | Partial | Blocked
 **Touched:** paths…
@@ -92,12 +95,18 @@ If neither: write exactly _No hive consult this session._>
 
 ### 3. Spine (only if durable change)
 
-Including **peer seat relationship** rows when lasting. Do not cross-write other packs.
+Edit only for lasting agreements, ask-patterns, lore, machine facts, or **peer seat relationships**.  
+If peer truth is durable, maintain `## Peer seats (crew)` — **from this seat’s side only**. Do not write into another pack (visa versa = their wrap).
 
 ### 4. Confirm
 
-Report journal path, worklog path, spine updated/unchanged, hive section status.
+Report journal path, worklog path, spine updated/unchanged, hive section status.  
+Do not clear the session unless asked.
 
 ## Anti-patterns
 
-- Transcript dump · folding hive into `## Recall` · secrets in packs · cross-write  
+- Transcript dump  
+- Folding hive/peer work into `## Recall` as autobiography  
+- Omitting `## From the hive` after a hive session  
+- Cross-writing another seat’s pack  
+- Secrets / API keys / auth files in any layer  

@@ -33,7 +33,8 @@ This is **judgment distillation**, not a transcript dump. Do it **before** clear
 
 1. Skim the spine if it exists.  
 2. List recent journal filenames (avoid duplicate slugs).  
-3. Today’s date + kebab slug for this task.
+3. Today’s date + kebab slug for this task.  
+4. **Gameroom check:** if `~/.grok/memory/gameroom/last-session.md` exists and is from this session/day (or the human played the room), fold its board/scores/open threads into journal + worklog. Prefer the room’s **Wrap room** button for pure play sessions (mechanical, no model $). CLI `/wrap` still owns full judgment distill when coding + play mixed. Do not dump full table-talk transcripts.
 
 ### 1. Journal (required)
 

@@ -37,7 +37,8 @@ Rough size: ~4 chars ≈ 1 token.
 1. **Spine** — full (or skim if huge).  
 2. **Latest journal `## Recall` only** — last 1–3. Prefer `## Recall` through next `##`, not full multi-page Notes.  
 3. **Today’s worklog** tail (or yesterday if today empty).  
-4. Stop at budget.
+4. **Gameroom (if present):** `~/.grok/memory/gameroom/last-session.md` — board/scores only, not a chat dump.  
+5. Stop at budget.
 
 ### 1B. Focus provided — search **own pack only**
 
